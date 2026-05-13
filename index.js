@@ -8,9 +8,9 @@ mongoose
   .then(() => console.log("conected to mongo db"))
   .catch((error) => console.log(error));
 
-  /**
-   * 2: creat schima and data
-   */
+/**
+ * 2: creat schima and data
+ */
 const courseSchema = new mongoose.Schema({
   name: String,
   auther: String,
@@ -22,8 +22,8 @@ const courseSchema = new mongoose.Schema({
 const Course = mongoose.model("Course", courseSchema);
 
 const course = new Course({
-    name:'moosa',
-    auther:'saadatyar',
-    tages:['angular', 'node.js','npm'],
-    isPublished:true
-})
+  name: "moosa",
+  auther: "saadatyar",
+  tages: ["angular", "node.js", "npm"],
+  isPublished: true,
+});
