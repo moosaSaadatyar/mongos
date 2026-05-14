@@ -44,8 +44,15 @@ async function getCoursess() {
   const courseDB = await Course.find({ author: "saadatyar" })
     .limit(10) // return 10 resolt
     .sort({ name: 1 }) //sort up:1 doen:-1;
-    .select({name:1 , tages:1}) //just return this data
-  console.log(courseDB);
+    .select({ name: 1, tages: 1 }); //just return this data
+
+  /**
+   * 5 use or and
+   */
+  const courseDb2 = await Course.find()
+    .or([{ author: "mohamadi" }, { name: "moosa" }])
+    .and([{ author: "mohamadi" }, { name: "moosa" }]);
+  console.log(courseDb2);
 }
 
 getCoursess();
