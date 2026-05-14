@@ -34,6 +34,18 @@ async function createCourse() {
    */
   const result = await course.save();
   console.log(result);
+  createCourse();
 }
 
-createCourse();
+/**
+ *4: get data from mongo db
+ */
+async function getCoursess() {
+  const courseDB = await Course.find({ author: "saadatyar" })
+    .limit(10) // return 10 resolt
+    .sort({ name: 1 }) //sort up:1 doen:-1;
+    .select({name:1 , tages:1}) //just return this data
+  console.log(courseDB);
+}
+
+getCoursess();
