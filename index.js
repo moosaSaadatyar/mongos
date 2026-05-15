@@ -52,7 +52,29 @@ async function getCoursess() {
   const courseDb2 = await Course.find()
     .or([{ author: "mohamadi" }, { name: "moosa" }])
     .and([{ author: "mohamadi" }, { name: "moosa" }]);
-  console.log(courseDb2);
+
+/**
+ * Regular Expressions (Regex) in MongoDB
+ *
+ * starts with:
+ * /^name/
+ *
+ * ends with:
+ * /name$/
+ *
+ * case insensitive:
+ * /name$/i
+ *
+ * contains:
+ * /.*name.*/
+  
+ */
+
+   
+  const regularDb = await Course.find({ author: /di$/ });
+
+  
+  console.log(regularDb);
 }
 
 getCoursess();
