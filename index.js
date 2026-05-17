@@ -17,16 +17,17 @@ const courseSchema = new mongoose.Schema({
     required: true,
     minlength: 5,
     maxlength: 255,
+    lowercase: true,
   },
   author: String,
   tags: {
     type: Array,
     validate: {
       validator: function (v) {
-       return v && v.length > 0;
+        return v && v.length > 0;
       },
     },
-    message: 'aad list need one tage'
+    message: "aad list need one tage",
   },
   date: { type: Date, default: Date.now },
   isPublished: Boolean,
@@ -37,6 +38,8 @@ const courseSchema = new mongoose.Schema({
     },
     min: 99,
     max: 255,
+    get: (v) => Math.round(v),
+    set: (v) => Math.round(v),
   },
 });
 
@@ -44,11 +47,11 @@ const Course = mongoose.model("Course", courseSchema);
 
 async function createCourse() {
   const course = new Course({
-    name: "exp",
-    author: "meta verse",
-    tags: [null],
+    name: "expres",
+    author: "meta Verse",
+    tags: ["wsx"],
     isPublished: false,
-    price: 119,
+    price: 119.34,
   });
 
   try {
@@ -60,10 +63,7 @@ async function createCourse() {
       console.log(element);
     }
   }
-      
-      
-      
-      
+
   /**
    * 3: save data
    */
