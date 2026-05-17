@@ -12,30 +12,63 @@ mongoose
  * 2: create schema and data
  */
 const courseSchema = new mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 255,
+  },
   author: String,
-  tags: [String],
+  tags: {
+    type: Array,
+    validate: {
+      validator: function (v) {
+       return v && v.length > 0;
+      },
+    },
+    message: 'aad list need one tage'
+  },
   date: { type: Date, default: Date.now },
   isPublished: Boolean,
+  price: {
+    type: Number,
+    required: function () {
+      return this.isPublished;
+    },
+    min: 99,
+    max: 255,
+  },
 });
 
 const Course = mongoose.model("Course", courseSchema);
 
 async function createCourse() {
   const course = new Course({
-    name: "donia",
-    author: "mohamadi",
-    tags: ["angular", "js", "npm"],
-    isPublished: true,
+    name: "exp",
+    author: "meta verse",
+    tags: [null],
+    isPublished: false,
+    price: 119,
   });
 
+  try {
+    const result = await course.save();
+    console.log(result);
+  } catch (exp) {
+    for (const key in exp.error) {
+      let element = exp.error[key];
+      console.log(element);
+    }
+  }
+      
+      
+      
+      
   /**
    * 3: save data
    */
-  const result = await course.save();
-  console.log(result);
-  createCourse();
 }
+createCourse();
 
 /**
  *4: get data from mongo db
@@ -155,5 +188,5 @@ const removeCourse = async (id) => {
   const resulte = await Course.deleteMany({ isPublished: true });
 
   console.log(resulte);
+  removeCourse("6a059d1f12472c55130eae74");
 };
-removeCourse("6a059d1f12472c55130eae74");
